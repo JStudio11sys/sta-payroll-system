@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { LayoutGroup, MotionConfig, motion } from "motion/react";
 import { Sidebar, SIDEBAR_FULL, SIDEBAR_LOGO, SIDEBAR_PAD, SIDEBAR_RAIL } from "@/components/sidebar";
 import { MobileHeader, Topbar } from "@/components/topbar";
@@ -9,13 +9,14 @@ import { MobileTabBar } from "@/components/mobile-nav";
 import { navItems } from "@/lib/mock-data";
 import { easeOutExpo, spring } from "@/lib/motion";
 import { useIsDesktop } from "@/lib/use-media";
+import { asset } from "@/lib/utils";
 
 type Box = { left: number; top: number; size: number };
 
 // Animates a copy of the logo along an arc (with a coin spin) from one spot to another.
 function flyLogo(from: DOMRect, to: Box, hide: HTMLElement[]) {
   const clone = document.createElement("img");
-  clone.src = "/logo.png";
+  clone.src = asset("/logo.png");
   clone.alt = "";
   Object.assign(clone.style, {
     position: "fixed",
@@ -63,7 +64,7 @@ const mobilePage = {
 
 // Re-animates the page content whenever the route changes.
 function PageTransition({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const pathname = usePath();
   const isDesktop = useIsDesktop();
   const index = navItems.findIndex((n) => n.href === pathname);
   const [nav, setNav] = useState({ path: pathname, index, dir: 0, first: true });

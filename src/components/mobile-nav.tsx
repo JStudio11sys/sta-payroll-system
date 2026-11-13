@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { AnimatePresence, motion } from "motion/react";
 import { LogOut, MoreHorizontal } from "lucide-react";
 import { navItems } from "@/lib/mock-data";
@@ -18,7 +18,7 @@ const MotionLink = motion.create(Link);
 
 // Bottom sheet with the remaining menu items; drag it down to close.
 function MoreSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const pathname = usePathname();
+  const pathname = usePath();
 
   useEffect(() => {
     if (!open) return;
@@ -93,7 +93,7 @@ function MoreSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 // Floating pill tab bar at the bottom of the screen on phones/tablets.
 export function MobileTabBar() {
-  const pathname = usePathname();
+  const pathname = usePath();
   const [moreOpen, setMoreOpen] = useState(false);
   // Light up the tapped tab right away, before the new page has loaded.
   const [activeHref, setActiveHref] = useState(pathname);

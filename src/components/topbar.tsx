@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { motion } from "motion/react";
 import { Bell, Search } from "lucide-react";
 import { alerts, currentPeriod, currentUser, navItems } from "@/lib/mock-data";
 import { spring } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 function usePageTitle() {
-  const pathname = usePathname();
+  const pathname = usePath();
   return navItems.find((n) => n.href === pathname)?.label ?? "Dashboard";
 }
 
@@ -51,7 +51,7 @@ export function Topbar({ collapsed }: { collapsed: boolean }) {
         )}
       >
         <Image
-          src="/logo.png"
+          src={asset("/logo.png")}
           alt="St. Theresita's Academy logo"
           width={44}
           height={44}
@@ -106,7 +106,7 @@ export function MobileHeader() {
   return (
     <header className="px-5 pt-[max(16px,env(safe-area-inset-top))] pb-2 lg:hidden">
       <div className="flex items-center gap-3">
-        <Image src="/logo.png" alt="St. Theresita's Academy logo" width={40} height={40} className="size-10 shrink-0" />
+        <Image src={asset("/logo.png")} alt="St. Theresita's Academy logo" width={40} height={40} className="size-10 shrink-0" />
         <div className="min-w-0 flex-1 leading-tight">
           <div className="truncate text-sm font-semibold text-primary">St. Theresita&apos;s Academy</div>
           <div className="truncate text-[11px] text-muted-foreground">Payroll System</div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePath } from "@/lib/use-path";
 import { motion } from "motion/react";
 import {
   LayoutDashboard,
@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { navItems, remittances } from "@/lib/mock-data";
 import { spring } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 export const navIcons: Record<string, LucideIcon> = {
   "/": LayoutDashboard,
@@ -43,7 +43,7 @@ export const SIDEBAR_LOGO = 88;
 const MotionLink = motion.create(Link);
 
 function NavList({ collapsed }: { collapsed: boolean }) {
-  const pathname = usePathname();
+  const pathname = usePath();
   // Switch the pill on click right away, before the new page has loaded.
   const [activeHref, setActiveHref] = useState(pathname);
   useEffect(() => setActiveHref(pathname), [pathname]);
@@ -102,7 +102,7 @@ export function SchoolBrand({ flyTarget = false, size = SIDEBAR_LOGO }: { flyTar
     <div className="flex flex-col items-center gap-3 text-center">
       <motion.div whileHover={{ rotate: -8, scale: 1.06 }} transition={spring}>
         <Image
-          src="/logo.png"
+          src={asset("/logo.png")}
           alt="St. Theresita's Academy logo"
           width={size}
           height={size}
